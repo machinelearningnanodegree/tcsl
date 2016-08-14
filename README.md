@@ -3,7 +3,7 @@ title: Timing Comparisons for Supervised Learning of a Classifier
 author:
 - name: Joshua Cook
   affiliation: Udacity, Machine Learning Nanodegree
-- name: **TODO**: Add Other Authors
+- name: Other Authors
   affiliation: Udacity, Machine Learning Nanodegree
 abstract:
     - This paper describes $n$ methods for fitting a binary supervised learning classifier on a single large dataset with multiple-typed typed features. Timing and accuracy are for the methods with analysis on the results in terms of the structure of the data set. Fits were performed using the popular open-source machine learning library `scikit-learn`. Additionally, a code repository including all necessary infrastructure has been developed and shared for reproducibility of results. 
@@ -38,7 +38,7 @@ $ docker run mlnd/tcsl
 Note that the last leverages a built-in launch script inherited from the original notebook definition.
 
 # Data Set
-**TODO**: select a dataset
+Select a dataset
 Proposed requirements:
 - Large but not too large i.e. can fit on a single system running Docker
 - lends itself to binary classification
@@ -46,19 +46,18 @@ Proposed requirements:
 - from UCI Machine Learning Dataset Library
 
 # Data Visualization
-**TODO**
 
-# Data Preprocessing
-**TODO**: one-hot encode classification parameters
-**TODO**: convert all booleans to numeric values
+
+# Feature Engineering
+one-hot encode classification parameters
+convert all booleans to numeric values
 
 # Split Data Set
-**TODO**:
 - training
 - test
+- use seed for reproducibility
 
 # Models
-**TODO**:
 For each model complete the following:
 Copy and paste this template to add a new model.
 name:
@@ -67,5 +66,18 @@ time complexity, training:
 time complexity, prediction:
 strengths:
 Weaknesses:
+
+# Metrics
+What metrics should be used for timing, for accuracy, others?
+
+# Pipeline
+1. raw fit of classifier
+1. raw prediction of classifier
+1. gridsearchCV fit
+1. prediction on tuned model
+
+# Analysis
+Highest performing model
+What this says about the data set chosen
 
 
