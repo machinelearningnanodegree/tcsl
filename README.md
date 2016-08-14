@@ -5,6 +5,8 @@ author:
   affiliation: Udacity, Machine Learning Nanodegree
 - name: Matthew Zhou
   affiliation: Udacity, Machine Learning Nanodegree
+- name: Maxime Leclerc
+  affiliation: Udacity, Machine Learning Nanodegree, Laval University
 - name: Other Authors
   affiliation: Udacity, Machine Learning Nanodegree
 abstract:
@@ -101,4 +103,5 @@ Decision Trees
 - Elastic Lasso
 - AdaBoost
 - Gradient Tree Boost
-- Perceptron 
+- Perceptron (Maxime)
+- Neural Networks (Maxime)
