@@ -258,13 +258,15 @@ Elastic Lasso
  \ \   
 
 
-AdaBoost
+AdaBoost (David)
 :  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
+: Adaptive Boosting uses a large number of "weak" learners to make predictions
+with high accuracy. These learners are all weighted and their collective output
+is used to make a classification.
+: time complexity, training - TBD
+: time complexity, prediction - TBD
+: Strengths - It doesn't require high-accuracy classifiers.
+: Weaknesses - More complicated than a single classifier.
  \ \   
 
 
