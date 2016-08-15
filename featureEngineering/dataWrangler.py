@@ -8,7 +8,7 @@ def getData(fileLoc=None):
     # Input: FileLoc = File location of the dataset
     # returns: DataFrame containing input data
     if fileLoc is None:
-        fileLoc = "./adultData/adult.data"
+        fileLoc = "./data/adult.data"
     headers = ["age", "workclass", "fnlwgt", "education", "education-num",
                "marital-status", "occupation", "relationship", "race", "sex",
                "capital-gain", "capital-loss", "hours-per-week",
