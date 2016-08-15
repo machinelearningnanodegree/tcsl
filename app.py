@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 import time
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 from sklearn import grid_search
 from sklearn.metrics import f1_score
 from sklearn import tree, svm, naive_bayes, ensemble, neighbors
@@ -13,7 +13,7 @@ import datetime
 # Read student data
 student_data = pd.read_csv("student-data.csv")
 student_data.reindex(np.random.permutation(student_data.index))
-print "Data read successfully!"
+print("Data read successfully!")
 
 dtc = tree.DecisionTreeClassifier()
 svc = svm.SVC()
@@ -23,7 +23,7 @@ rfc = ensemble.RandomForestClassifier()
 adc = ensemble.AdaBoostClassifier()
 
 models = [dtc, svc, nbc, knn, rfc, adc]
-
+X, y = np.arange(1000).reshape((500, 2)), range(500)
 
 class Model:
     def __init__(self, classifier, parameters=[]):
@@ -31,29 +31,29 @@ class Model:
         self.parameters = parameters
 
     def train_classifier(self, clf, X_train, y_train):
-        print "Training {}...".format(clf.__class__.__name__)
-        # start = np.datetime64(datetime.datetime.now(),"us")
+        print("Training {}...".format(clf.__class__.__name__))
+         # start = np.datetime64(datetime.datetime.now(),"us")
         start = time.time()
         clf.fit(X_train, y_train)
         # end = np.datetime64(datetime.datetime.now(),"us")
         end = time.time()
         self.training_time = end - start
-        print self.training_time
+        print(self.training_time)
 
     def predict_labels(self, clf, features, target):
-        # print "Predicting labels using {}...".format(clf.__class__.__name__)
-        # start = np.datetime64(datetime.datetime.now(),"us")
+        # print("Predicting labels using {}...".format(clf.__class__.__name__))
+         # start = np.datetime64(datetime.datetime.now(),"us")
         start = time.time()
         y_pred = clf.predict(features)
         # end = np.datetime64(datetime.datetime.now(),"us")
         end = time.time()
         self.prediction_time = end - start
-        f1_score_output = f1_score(target.values, y_pred)
+        f1_score_output = f1_score(target, y_pred, average="macro")
         return f1_score_output
 
     def train_predict(self, clf, X_train, y_train, X_test, y_test):
-        print "------------------------------------------"
-        print "Training set size: {}".format(len(X_train))
+        print("------------------------------------------")
+        print("Training set size: {}".format(len(X_train)))
         self.train_classifier(clf, X_train, y_train)
         self.f1_train = self.predict_labels(clf, X_train, y_train)
         self.f1_test = self.predict_labels(clf, X_test, y_test)
@@ -71,7 +71,8 @@ for x in [100, 200, 300]:
 
     for model in models:
         clf = Model(model)
-        X_train, y_train, X_test, y_test = train_split(x)
+        X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.33, random_state=42)
+
         output = clf.train_predict(model, X_train, y_train, X_test, y_test)
         classifiers.append(model.__class__.__name__)
         train_times.append(str(output[0]))
@@ -88,7 +89,7 @@ for x in [100, 200, 300]:
 
 for i, frame in enumerate(dataframes):
     filenumber = i * 100
-    filename = "{} samples.csv".format(filenumber)
+    filename = "results/{} samples.csv".format(filenumber)
     frame.to_csv(filename)
 
 
@@ -102,5 +103,5 @@ for i, frame in enumerate(dataframes):
 #                  "C":[1,10,100,1000],
 #                  }],X_train,y_train)
 
-# print clf.best_params_
-# print predict_labels(clf,X_test,y_test)
+# print(clf.best_params_)
+ # print(predict_labels(clf,X_test,y_test))

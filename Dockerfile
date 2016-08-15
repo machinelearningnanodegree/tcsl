@@ -1,3 +1,4 @@
 FROM jupyter/scipy-notebook
-VOLUMES .:/home/jovyan/work
-
+RUN mkdir results
+COPY app.py .
+COPY student-data.csv .
