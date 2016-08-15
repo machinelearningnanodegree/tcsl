@@ -5,6 +5,8 @@ author:
   affiliation: Udacity, Machine Learning Nanodegree
 - name: Matthew Zhou
   affiliation: Udacity, Machine Learning Nanodegree
+- name: David Timm
+  affiliation: Udacity, Machine Learning Nanodegree
 - name: Other Authors
   affiliation: Udacity, Machine Learning Nanodegree
 abstract:
@@ -99,6 +101,6 @@ Decision Trees
 - Quadratic Discriminant Analysis
 - Gaussian Processes
 - Elastic Lasso
-- AdaBoost
+- AdaBoost (David)
 - Gradient Tree Boost
 - Perceptron 
