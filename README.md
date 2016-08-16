@@ -279,7 +279,7 @@ Gradient Tree Boost (Joshua)
 : Weaknesses  
  \ \   
 
-Perceptron
+Perceptron (Maxime)
 :  \ \  
 : brief description
 : time complexity, training
@@ -287,6 +287,15 @@ Perceptron
 : strengths
 : Weaknesses  
  \ \   
+
+Neural Network (Maxime)
+:  \ \  
+: brief description
+: time complexity, training
+: time complexity, prediction
+: strengths
+: Weaknesses  
+ \ \  
 
 
 List of Supervised Learning Models:
