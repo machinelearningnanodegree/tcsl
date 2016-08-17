@@ -125,7 +125,7 @@ name
 - discriminant_analysis.QuadraticDiscriminantAnalysis  (JOSHUA)
 - dummy.DummyClassifier                                (JOSHUA)
 - ensemble.AdaBoostClassifier                          (DAVID)
-- ensemble.BaggingClassifier
+- ensemble.BaggingClassifier                           (BHARAT)
 - ensemble.ExtraTreesClassifier
 - ensemble.GradientBoostingClassifier                  (NASH)
 - ensemble.RandomForestClassifier
@@ -134,7 +134,7 @@ name
 - ensemble.VotingClassifier                            (BHARAT)
 - linear_model.LogisticRegression                      (JOSHUA)
 - linear_model.PassiveAggressiveClassifier
-- linear_model.RidgeClassifier
+- linear_model.RidgeClassifier                         (BHARAT)
 - linear_moder.SGDClassifier                           (JOSHUA)
 - multiclass.OneVsOneClassifier
 - multiclass.OneVsRestClassifier
