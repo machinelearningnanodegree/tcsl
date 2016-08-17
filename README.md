@@ -161,6 +161,25 @@ Ridge Regression
 Stochastic Gradient Descent (Joshua)
 :  \ \  
 : brief description
+`sklearn.linear_model.SGDClassifier`
+
+```
+{loss:
+penalty:
+alpha:
+l1_ratio:
+fit_intercept:
+n_iter:
+shuffle:
+random_state:
+verbose:
+epsilon:
+learning_rate:
+eta0:
+class_weight:
+warm_start:
+average:}
+```
 : time complexity, training
 : time complexity, prediction
 : strengths
@@ -231,6 +250,12 @@ Linear Discriminant Analysis
 Quadratic Discriminant Analysis (Joshua)
 :  \ \  
 : brief description
+`sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`
+
+```
+{priors:
+reg_param:}
+```
 : time complexity, training
 : time complexity, prediction
 : strengths
@@ -270,7 +295,7 @@ is used to make a classification.
  \ \   
 
 
-Gradient Tree Boost (Joshua)
+Gradient Tree Boost (Nash)
 :  \ \  
 : brief description
 : time complexity, training
