@@ -128,7 +128,7 @@ name
 - ensemble.BaggingClassifier                           (BHARAT)
 - ensemble.ExtraTreesClassifier
 - ensemble.GradientBoostingClassifier                  (NASH)
-- ensemble.RandomForestClassifier
+- ensemble.RandomForestClassifier                      (MATT)
 - ensemble.RandomTreesEmbedding
 - ensemble.RandomTreesEmbedding
 - ensemble.VotingClassifier                            (BHARAT)
@@ -150,7 +150,7 @@ name
 - svm.LinearSVC
 - svm.NuSVC
 - svm.SVC                                              (MATT)
-- tree.DecisionTreeClassifier
+- tree.DecisionTreeClassifier                          (MATT)
 - tree.ExtraTreeClassifier
 ```
 
