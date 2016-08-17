@@ -1,3 +1,20 @@
+"""
+usage: dataWrangler.py [-h] [-i RAWDATALOC] [-s CV] [-r RS] [-o TEMPLOC]
+
+DataWrangling Script - reads rawData from the /data folder and creates
+features-labels(Test Train Split) and store it in /tmp folder
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -i RAWDATALOC  rawData file location <use absolute file path>.
+                 default_value: ./data/adult.data
+  -s CV          size of the cross_validation set. default_value: 0.30
+  -r RS          random_state to use for splitting the data. default_value: 42
+  -o TEMPLOC     file location to store temporary binary data for
+                 test_train_split <use absolute file path>. default_value:
+                 ./tmp/
+"""
+
 from __future__ import print_function, absolute_import
 import pandas as pd
 import numpy as np
@@ -83,7 +100,7 @@ def storeData(df, fileLoc='./tmp/', cv=0.30, rs=21):
     # Note: data can be accessed using:
     #       Ex: data = np.load('./tmp/testTrainData.npz')
     #       and access the train/test using split using dictionary formatting.
-    #       Ex: data['XTrain'] 
+    #       Ex: data['XTrain']
     """
     filename = fileLoc+'testTrainData'
     XTrain, XTest, yTrain, yTest = trainCvSplit(df, cv, rs)
