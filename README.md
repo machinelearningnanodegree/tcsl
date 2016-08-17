@@ -295,7 +295,7 @@ is used to make a classification.
  \ \   
 
 
-Gradient Tree Boost (Joshua)
+Gradient Tree Boost (Nash)
 :  \ \  
 : brief description
 : time complexity, training
