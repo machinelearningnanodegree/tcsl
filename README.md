@@ -62,36 +62,36 @@ https://archive.ics.uci.edu/ml/datasets/Adult (proposed)
 Abstract: Predict whether income exceeds $50K/yr based on census data. Also known as "Census Income" dataset.
 Data Set Information:
 
-Extraction was done by Barry Becker from the 1994 Census database. A set of reasonably clean records was extracted using the following conditions: ((AAGE>16) && (AGI>100) && (AFNLWGT>1)&& (HRSWK>0)) 
+Extraction was done by Barry Becker from the 1994 Census database. A set of reasonably clean records was extracted using the following conditions: ((AAGE>16) && (AGI>100) && (AFNLWGT>1)&& (HRSWK>0))
 
-Prediction task is to determine whether a person makes over 50K a year. 
+Prediction task is to determine whether a person makes over 50K a year.
 
 
 Attribute Information:
 
-Listing of attributes: 
+Listing of attributes:
 
->50K, <=50K. 
+>50K, <=50K.
 
-age: continuous. 
-workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked. 
-fnlwgt: continuous. 
-education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool. 
-education-num: continuous. 
-marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse. 
-occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces. 
-relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried. 
-race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black. 
-sex: Female, Male. 
-capital-gain: continuous. 
-capital-loss: continuous. 
-hours-per-week: continuous. 
+age: continuous.
+workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked.
+fnlwgt: continuous.
+education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
+education-num: continuous.
+marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
+occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
+relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
+race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
+sex: Female, Male.
+capital-gain: continuous.
+capital-loss: continuous.
+hours-per-week: continuous.
 native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.
 
 
 Relevant Papers:
 
-Ron Kohavi, "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid", Proceedings of the Second International Conference on Knowledge Discovery and Data Mining, 1996 
+Ron Kohavi, "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid", Proceedings of the Second International Conference on Knowledge Discovery and Data Mining, 1996
 
 # Data Visualization
 
@@ -117,74 +117,42 @@ name
 : time complexity, prediction
 : strengths
 : Weaknesses  
- \ \   
-
-
-Support Vector Machines (Matt)
-:  \ \    
-:  brief description
-:  time complexity, training
-:  time complexity, prediction
-:  strengths
-:  Weaknesses
-
-Decision Trees
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Naive Bayes
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Ridge Regression
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Stochastic Gradient Descent (Joshua)
-:  \ \  
-: brief description
-`sklearn.linear_model.SGDClassifier`
+ \ \  
 
 ```
-{loss:
-penalty:
-alpha:
-l1_ratio:
-fit_intercept:
-n_iter:
-shuffle:
-random_state:
-verbose:
-epsilon:
-learning_rate:
-eta0:
-class_weight:
-warm_start:
-average:}
+- calibration.CalibratedClassifierCV                   (JOSHUA)
+- discriminant_analysis.LinearDiscriminantAnalysis
+- discriminant_analysis.QuadraticDiscriminantAnalysis  (JOSHUA)
+- dummy.DummyClassifier                                (JOSHUA)
+- ensemble.AdaBoostClassifier                          (DAVID)
+- ensemble.BaggingClassifier
+- ensemble.ExtraTreesClassifier
+- ensemble.GradientBoostingClassifier                  (NASH)
+- ensemble.RandomForestClassifier
+- ensemble.RandomTreesEmbedding
+- ensemble.RandomTreesEmbedding
+- ensemble.VotingClassifier                            (BHARAT)
+- linear_model.LogisticRegression                      (JOSHUA)
+- linear_model.PassiveAggressiveClassifier
+- linear_model.RidgeClassifier
+- linear_moder.SGDClassifier                           (JOSHUA)
+- multiclass.OneVsOneClassifier
+- multiclass.OneVsRestClassifier
+- multiclass.OutputCodeClassifier
+- naive_bayes.BernoulliNB
+- naive_bayes.GaussianNB
+- naive_bayes.MultinomialNB
+- neighbors.KNeighborsClassifier                       (MATT)
+- neighbors.NearestCentroid
+- neighbors.RadiusNeighborsClassifier
+- neural_network.BernoulliRBM                          (MAXIME)
+- semi_supervised.LabelPropagation
+- svm.LinearSVC
+- svm.NuSVC
+- svm.SVC                                              (MATT)
+- tree.DecisionTreeClassifier
+- tree.ExtraTreeClassifier
 ```
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
 
 
 Adaptive Moment Estimation (ADAM)
@@ -196,37 +164,6 @@ Adaptive Moment Estimation (ADAM)
 : Weaknesses  
  \ \   
 
-
-Linear/Logistic Regression
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-K-nearest Neighbors (Matt)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Random Forests
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
 XGBoost (may require additional lib) (Matt)
 :  \ \  
 : brief description
@@ -236,51 +173,6 @@ XGBoost (may require additional lib) (Matt)
 : Weaknesses  
  \ \   
 
-
-Linear Discriminant Analysis
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Quadratic Discriminant Analysis (Joshua)
-:  \ \  
-: brief description
-`sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`
-
-```
-{priors:
-reg_param:}
-```
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Gaussian Processes
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-
-Elastic Lasso
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
 
 
 AdaBoost (David)
@@ -294,33 +186,6 @@ is used to make a classification.
 : Weaknesses - More complicated than a single classifier.
  \ \   
 
-
-Gradient Tree Boost (Nash)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-Perceptron (Maxime)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
-
-Neural Network (Maxime)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \  
 
 
 List of Supervised Learning Models:
