@@ -250,6 +250,12 @@ Linear Discriminant Analysis
 Quadratic Discriminant Analysis (Joshua)
 :  \ \  
 : brief description
+`sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`
+
+```
+{priors:
+reg_param:}
+```
 : time complexity, training
 : time complexity, prediction
 : strengths
@@ -260,12 +266,6 @@ Quadratic Discriminant Analysis (Joshua)
 Gaussian Processes
 :  \ \  
 : brief description
-`sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`
-
-```
-{priors:
-reg_param:}
-```
 : time complexity, training
 : time complexity, prediction
 : strengths
