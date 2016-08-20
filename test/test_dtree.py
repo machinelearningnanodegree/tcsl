@@ -10,7 +10,7 @@ def baseline(*args):
     # returns: the classification accuracy_score
     """
     XTrain, XTest, yTrain, yTest = args
-    clf = DecisionTreeClassifier()
+    clf = DecisionTreeClassifier(random_state=42)
     clf.fit(XTrain, yTrain)
     return clf.score(XTest, yTest), clf.feature_importances_
 
@@ -28,6 +28,13 @@ def selectFeatures(k_features=5, *args):
 
 if __name__ == "__main__":
     data = np.load('./tmp/testTrainData.npz')
-    XTrain, XTest, yTrain, yTest = (data[item] for item in data.keys())
-    print(baseline(XTrain, XTest, yTrain, yTest))
-    print(selectFeatures(5, XTrain, yTrain))
+    XTrain, XTest, yTest, yTrain = (data[item] for item in data.keys())
+    dtree_output = baseline(XTrain, XTest, yTrain, yTest)
+    assert(np.allclose(dtree_output[0],0.81349,atol=1e-5))
+    assert(np.allclose(dtree_output[1],
+            np.array([ 0.18321826,  0.05276996,  0.14053585,  0.16994514,  0.0759449 ,
+                       0.02099475,  0.01722604,  0.17374549,  0.04401084,  0.09797639,
+                       0.02363239]), atol=0.01))
+    k_best_output = selectFeatures(5, XTrain, yTrain)
+    assert(k_best_output.shape == (22792, 5))
+    #assert(np.allclose())

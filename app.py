@@ -4,12 +4,12 @@ import pandas as pd
 from sklearn import grid_search
 from sklearn.cross_validation import train_test_split
 
-from lib.classifiers import CLASSIFIERS
 from lib.model import Model
+from lib.model.classifiers import CLASSIFIERS
 
 data = np.load('./tmp/testTrainData.npz')
 print(data.keys())
-X_train, X_test, y_test, y_train = (data[item] for item in data.keys())
+X_test, X_train, y_test, y_train = (data[item] for item in data.keys())
 
 classifiers = []
 dataframes = []

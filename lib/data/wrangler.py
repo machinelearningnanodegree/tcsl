@@ -16,6 +16,7 @@ optional arguments:
 """
 
 from __future__ import print_function, absolute_import
+import os
 import pandas as pd
 import numpy as np
 from sklearn.cross_validation import train_test_split
@@ -102,6 +103,8 @@ def storeData(df, fileLoc='./tmp/', cv=0.30, rs=21):
     #       and access the train/test using split using dictionary formatting.
     #       Ex: data['XTrain']
     """
+    if not os.path.exists('tmp'):
+        os.makedirs('tmp')
     filename = fileLoc+'testTrainData'
     XTrain, XTest, yTrain, yTest = trainCvSplit(df, cv, rs)
     kwargs = {'XTrain': XTrain,
