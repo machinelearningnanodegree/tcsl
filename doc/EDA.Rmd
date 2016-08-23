@@ -4,6 +4,8 @@ output: html_document
 Adult Data Exploratory Visualization
 =======================================================
 
+# Data Prep
+
 Loading necessary packages and Adult Data.
 
 ``` {r echo=TRUE, message=FALSE, warning=FALSE, packages}
@@ -25,12 +27,73 @@ library(gridExtra)
 cNames = c('Age','Workclass','FnlWgt','Education','EducationNum',
            'MaritalStatus','Occupation','Relationship','Race','Sex',
            'CapitalGain','CapitalLoss','HoursPerWeek','NativeCountry','Income')
-adult = read.csv('../data/adult.data', header=FALSE, col.names = cNames)
+adult = read.csv('../data/adult.data', header=FALSE, col.names = cNames, strip.white = TRUE)
 ```
 
-First test visualization.
+# Data Overview
+```{r echo=TRUE, message=FALSE, warning=FALSE, overview}
+# Dimensions of data
+m = nrow(adult)
+n = ncol(adult)
+gsub('ncol',n,gsub('nrow',m,'The dataset has nrow rows and ncol columns'))
 
-``` {r echo=TRUE, message=FALSE, warning=FALSE, testViz}
-# Kernel Density Estimate (KDE) of Age
-plot(density(adult$Age))
+# Feature names
+colnames(adult)
+
+# Unique classes
+unique(adult$Income)
+
+# Summary of features
+summary(adult[, names(adult)!='Income'])
+
+# Class balance
+table(adult$Income) / m
+
+# Racial balance
+table(adult$Race) / m
+
+# Gender balance
+table(adult$Sex) / m
+
+```
+
+There are 14 features to work with, and the nature of the label "Income" shows that this task will have to be binary classification. The labels are not totally unbalanced, at 76%-24%. Racially, the dataset is quite dominated by caucasians. The dataset is also made up of about 2/3rds males.
+
+One of the most interesting features, particularly when attempting to model Income, ought to be Education.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_One}
+# Set the ggPlot theme to something not gross
+theme_set(theme_minimal(12))
+
+# Factor levels aren't set properly; manually set
+adult$Education = sapply(adult$Education, as.character)
+levs = c('Preschool','1st-4th','5th-6th','7th-8th','9th','10th','11th','12th',
+         'HS-grad','Some-college','Assoc-acdm','Assoc-voc','Bachelors','Masters','Prof-school','Doctorate')
+adult$Education = factor(adult$Education, levels = levs)
+
+# Education histogram
+ggplot(adult, aes(Education)) +
+  geom_bar(fill="#236B8E") +
+  geom_vline(aes(xintercept=mean(EducationNum)), 
+             color="black", linetype="dashed",size=0.75) +
+  ylab("Count") + 
+  ggtitle("Education Histogram w/ Mean") + 
+  theme(axis.text.x = element_text(angle=90, hjust=1),
+        axis.title.x=element_blank())
+
+# Education split by gender
+# Normalize to discount gender imbalance
+edByGender = aggregate(1:nrow(adult), by=list(adult$Sex, adult$Education), length)
+names(edByGender) = c('Gender','Education','Num')
+
+edByGender$EdPctOfGender = with(edByGender, ifelse(Gender=='Male',
+                                         Num / sum(Num[Gender=='Male']),
+                                         Num / sum(Num[Gender=='Female'])))
+edByGender$GenderPctOfEd = mapply(function(ed,num) {
+  return(num / sum(edByGender[edByGender$Education==ed,'EdPctOfGender']))
+  }, edByGender$Education, edByGender$EdPctOfGender)
+
+# TODO: make cumulative line plot of Num by Gender
+
+
 ```
