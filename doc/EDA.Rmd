@@ -1,0 +1,36 @@
+---
+output: html_document
+---
+Adult Data Exploratory Visualization
+=======================================================
+
+Loading necessary packages and Adult Data.
+
+``` {r echo=TRUE, message=FALSE, warning=FALSE, packages}
+# Loading useful packages
+packs = c("ggplot2","ggthemes","gridExtra")
+lapply(packs, function(p) {
+  if (!(p %in% installed.packages()[,'Package'])) {
+    install.packages(p)
+  }
+  else {
+    gsub('package', p, 'package already installed')
+  }
+})
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+
+# Loading adult data
+cNames = c('Age','Workclass','FnlWgt','Education','EducationNum',
+           'MaritalStatus','Occupation','Relationship','Race','Sex',
+           'CapitalGain','CapitalLoss','HoursPerWeek','NativeCountry','Income')
+adult = read.csv('../data/adult.data', header=FALSE, col.names = cNames)
+```
+
+First test visualization.
+
+``` {r echo=TRUE, message=FALSE, warning=FALSE, testViz}
+# Kernel Density Estimate (KDE) of Age
+plot(density(adult$Age))
+```
