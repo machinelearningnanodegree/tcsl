@@ -41,7 +41,7 @@ CLASSIFIERS = [
     # semi_supervised.LabelPropagation,
     # svm.LinearSVC,
     # svm.NuSVC,
-    (svm.SVC, {}),
-    (tree.DecisionTreeClassifier, {'random_state' : 42})
+    (svm.SVC, {}, {}),
+    (tree.DecisionTreeClassifier, {'random_state' : 42}, {})
     # tree.ExtraTreeClassifier
     ]
