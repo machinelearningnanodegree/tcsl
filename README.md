@@ -128,7 +128,7 @@ name
 - ensemble.BaggingClassifier                           (BHARAT)
 - ensemble.ExtraTreesClassifier
 - ensemble.GradientBoostingClassifier                  (NASH)
-- ensemble.RandomForestClassifier
+- ensemble.RandomForestClassifier                      (MATT)
 - ensemble.RandomTreesEmbedding
 - ensemble.RandomTreesEmbedding
 - ensemble.VotingClassifier                            (BHARAT)
@@ -139,8 +139,8 @@ name
 - multiclass.OneVsOneClassifier
 - multiclass.OneVsRestClassifier
 - multiclass.OutputCodeClassifier
-- naive_bayes.BernoulliNB
-- naive_bayes.GaussianNB
+- naive_bayes.BernoulliNB                              (ANDREY)
+- naive_bayes.GaussianNB                               (ANDREY)
 - naive_bayes.MultinomialNB
 - neighbors.KNeighborsClassifier                       (MATT)
 - neighbors.NearestCentroid
@@ -148,9 +148,9 @@ name
 - neural_network.BernoulliRBM                          (MAXIME)
 - semi_supervised.LabelPropagation
 - svm.LinearSVC
-- svm.NuSVC
+- svm.NuSVC                                            (ANDREY)
 - svm.SVC                                              (MATT)
-- tree.DecisionTreeClassifier
+- tree.DecisionTreeClassifier                          (MATT)
 - tree.ExtraTreeClassifier
 ```
 
