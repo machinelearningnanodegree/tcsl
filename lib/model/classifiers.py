@@ -19,7 +19,10 @@ CLASSIFIERS = [
     # ensemble.AdaBoostClassifier,
     # ensemble.BaggingClassifier,
     # ensemble.ExtraTreesClassifier,
-    # ensemble.GradientBoostingClassifier,
+    (ensemble.GradientBoostingClassifier, {'random_state' : 42}, {
+        'n_estimators' : [50,75,100,125,150],
+        'max_leaf_nodes' : range(4,9),
+    }),
     # ensemble.RandomForestClassifier,
     # ensemble.RandomTreesEmbedding,
     # ensemble.RandomTreesEmbedding,
