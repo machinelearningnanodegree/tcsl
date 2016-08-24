@@ -169,7 +169,7 @@ class FeatureSelector(object):
         for item in k_features:
             k_best_score[item] += 1
         # create a probability mass function of the distribution.
-        for key, value in k_best_score.iteritems():
+        for key, value in k_best_score.items():
             k_best_score[key] = value/k_norm
         return k_best_score
 
