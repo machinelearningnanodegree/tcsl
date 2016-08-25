@@ -2,3 +2,6 @@ results/*
 tmp/*
 *.npz
 *.pyc
+**/.DS_Store
+tags
+.ipynb_checkpoints

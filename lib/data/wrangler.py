@@ -17,8 +17,7 @@ from sklearn.feature_selection import SelectKBest
 
 def readData(fileLoc=None):
     data = np.load(fileLoc)
-    print(data.keys())
-    return (data[item] for item in data.keys())
+    return data
 
 
 class PreProcess(object):

@@ -110,7 +110,7 @@ convert all booleans to numeric values
 
 ```
 - calibration.CalibratedClassifierCV                   (JOSHUA)
-- discriminant_analysis.LinearDiscriminantAnalysis
+- discriminant_analysis.LinearDiscriminantAnalysis     (JOSHUA)
 - discriminant_analysis.QuadraticDiscriminantAnalysis  (JOSHUA)
 - dummy.DummyClassifier                                (JOSHUA)
 - ensemble.AdaBoostClassifier                          (DAVID)

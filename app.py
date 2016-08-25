@@ -5,10 +5,11 @@ import pandas as pd
 from lib.data.wrangler import readData
 from lib.helpers import runTests, writeToCsv
 
-X_train, \
-    X_test, \
-    y_test, \
-    y_train = readData('./tmp/testTrainData.npz')
+data = readData('./tmp/testTrainData.npz')
+X_train = data['XTrain']
+X_test = data['XTest']
+y_train = data['yTrain']
+y_test = data['yTest']
 
 classifiers, \
     train_times, \
