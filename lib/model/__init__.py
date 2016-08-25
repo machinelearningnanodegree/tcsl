@@ -7,7 +7,7 @@ class Model:
         self.classifier = classifier
         self.model = classifier(**parameters)
         self.parameters = parameters
-        self.gs_model = GridSearchCV(self.model, gs_params)
+        self.gs_model = GridSearchCV(self.classifier(), gs_params)
         self.gs_params = gs_params
         self.optimal_model = None
         self.optimal_params = {}
@@ -54,16 +54,16 @@ class Model:
         end = time.time()
         prediction_time = end - start
 
-        f1_score_output = f1_score(target, y_pred, average="macro")
+        f1_score_output = f1_score(target, y_pred, average="binary")
 
         print("Predicting labels using {} with optimal parameters...".format(self.classifier.__name__))
-        
+
         start = time.time()
         y_pred = self.optimal_model.predict(features)
         end = time.time()
         optimal_prediction_time = end - start
 
-        f1_optimal_score_output = f1_score(target, y_pred, average="macro")
+        f1_optimal_score_output = f1_score(target, y_pred, average="binary")
 
         return f1_score_output, prediction_time, \
             f1_optimal_score_output, optimal_prediction_time

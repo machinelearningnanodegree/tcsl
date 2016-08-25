@@ -15,6 +15,7 @@ def runTests(X_test, X_train, y_test, y_train):
     f1_tests = []
 
     for classifier, parameters, gs_params in CLASSIFIERS:
+        print (classifier, parameters, gs_params)
         this_model = Model(classifier, parameters, gs_params)
 
         this_model(X_train, y_train, X_test, y_test)
