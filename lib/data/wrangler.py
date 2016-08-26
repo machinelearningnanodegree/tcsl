@@ -138,8 +138,9 @@ class PreProcess(object):
 
 
 class FeatureSelector(object):
-    def __init__(self, prepdata):
-        self.prepdata = prepdata
+    def __init__(self, pdata):
+        self.pdata = pdata
+        self.prepdata = pdata.__getprep__()
         self.get_splits()
 
     def _array_to_df(self, features, colnames):
