@@ -21,30 +21,30 @@ based on this work: http://journals.plos.org/ploscompbiol/article?id=10.1371/jou
 ```
 
 # System Design
-For portability and reproducibility of results, we have elected to use the Docker system and its `Dockerfile` syntax to prepare. As this work is done using Python and its `scikit-learn` libraries we have elected to use a system built via the Anaconda package manager. Furthermore, leveraging images designed by and for using the Jupyter system, which is built via Anaconda, allows a single container to be used both for running the analysis script and for interactive analysis of the data via Jupyter. The following `Dockerfile` completely describes the system used for this work. Note that it inherits from a Docker image designed and maintained by the [Jupyter team](https://hub.docker.com/r/jupyter/scipy-notebook/).
+For portability and reproducibility of results, we have elected to use the Docker system and its `Dockerfile` syntax to prepare. As this work is done using Python and its `scikit-learn` libraries we have elected to use a system built via the Anaconda package manager. Furthermore, leveraging images designed by and for using the Jupyter system, which is built via Anaconda, allows a single container to be used both for running the analysis script and for interactive analysis of the data via Jupyter. We use a Docker image designed and maintained by the [Jupyter team](https://hub.docker.com/r/jupyter/scipy-notebook/).
 
-## `mlnd/tcsl Dockerfile`
-```
-FROM jupyter/scipy-notebook
-VOLUMES .:/home/jovyan/work
-```
+## Running commands
 
-Via the above, fit analysis can be run on a single classifier,
+We have designed a `Makefile` to make working with the docker system easier.
+
+
+
+Via `Makefile`, data can be pre processed,
 
 ```
-$ docker run -e CLASSIFIER='decision tree' mlnd/tcsl python project.py
+$ make wrangle_data
 ```
 
 all classifiers,
 
 ```
-$ docker run mlnd/tcsl python project.py
+$ make all_classifiers
 ```
 
 or via an interactive notebook server
 
 ```
-$ docker run mlnd/tcsl
+$ make notebook_server
 ```
 
 Note that the last leverages a built-in launch script inherited from the original notebook definition, in that no explicit command was passed to the container.
