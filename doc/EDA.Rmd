@@ -61,7 +61,7 @@ There are 14 features to work with, and the nature of the label "Income" shows t
 
 One of the most interesting features, particularly when attempting to model Income, ought to be Education.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_One}
+```{r echo=FALSE, message=FALSE, warning=FALSE, EdByGender}
 # Set the ggPlot theme to something not gross
 theme_set(theme_minimal(12))
 
@@ -83,17 +83,103 @@ ggplot(adult, aes(Education)) +
 
 # Education split by gender
 # Normalize to discount gender imbalance
-edByGender = aggregate(1:nrow(adult), by=list(adult$Sex, adult$Education), length)
-names(edByGender) = c('Gender','Education','Num')
+edByGender = data.frame(Education=levels(adult$Education))
 
-edByGender$EdPctOfGender = with(edByGender, ifelse(Gender=='Male',
-                                         Num / sum(Num[Gender=='Male']),
-                                         Num / sum(Num[Gender=='Female'])))
-edByGender$GenderPctOfEd = mapply(function(ed,num) {
-  return(num / sum(edByGender[edByGender$Education==ed,'EdPctOfGender']))
-  }, edByGender$Education, edByGender$EdPctOfGender)
+edByGender$NumFemale = sapply(edByGender$Education, function(e) {return(sum(adult$Education==e & adult$Sex=='Female'))})
+edByGender$NumMale = sapply(edByGender$Education, function(e) {return(sum(adult$Education==e & adult$Sex=='Male'))})
+edByGender$Total = with(edByGender, NumFemale+NumMale)
 
-# TODO: make cumulative line plot of Num by Gender
+edByGender$EdPctOfFemale = edByGender$NumFemale / sum(edByGender$NumFemale)
+edByGender$EdPctOfMale = edByGender$NumMale / sum(edByGender$NumMale)
 
+edByGender$FemalePctOfEd = edByGender$NumFemale / edByGender$Total
+edByGender$MalePctOfEd = edByGender$NumMale / edByGender$Total
 
+edByGender$EdPctOfFemaleCuml = cumsum(edByGender$EdPctOfFemale)
+edByGender$EdPctOfMaleCuml = cumsum(edByGender$EdPctOfMale)
+
+forPlot = data.frame(Education=rep(edByGender$Education,2))
+forPlot$Gender = sort(rep(c('Female','Male'), nrow(edByGender)))
+forPlot$CumEdPct = c(edByGender$EdPctOfFemaleCuml, edByGender$EdPctOfMaleCuml)
+forPlot$CumEdPctRev = 1 - forPlot$CumEdPct
+
+# TODO: make cumulative line plot of Num by Gender (both up and down)
+ggplot(forPlot, aes(x=rep(1:nrow(edByGender),2), y=CumEdPct, color=Gender)) + geom_line() + geom_point() +
+  scale_x_continuous(labels=levels(adult$Education), breaks=1:nrow(edByGender)) +
+  ylab('Prop. with at most this ed') +
+  ggtitle('Cumulative Education Level By Gender') + 
+  theme(axis.text.x = element_text(angle=90, hjust=1),
+        axis.title.x=element_blank())
+
+ggplot(forPlot, aes(x=rep(1:nrow(edByGender),2), y=CumEdPctRev, color=Gender)) + geom_line() + geom_point() +
+  scale_x_continuous(labels=levels(adult$Education), breaks=1:nrow(edByGender)) +
+  ylab('Prop. with at least this ed') +
+  ggtitle('Cumulative Education Level By Gender') + 
+  theme(axis.text.x = element_text(angle=90, hjust=1),
+        axis.title.x=element_blank())
 ```
+
+We see the average person graduates high school and gets "some college", and that slightly more males graduate high school, but females take the lead the rest of the way, until males catch up in grad school.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, splitHours}
+# average hours by some splitting feature
+hoursSplit <- function(splittingFeature, scl) {
+  groupAvgs = aggregate(adult$HoursPerWeek, by=list(adult[,splittingFeature]), mean)
+  names(groupAvgs) = c('Group','Target')
+  groupAvgs = groupAvgs[order(groupAvgs$Target),]
+  title = gsub('group',splittingFeature, 'scl Avg Hours Per Week by group')
+  if (scl) {
+    groupAvgs$Target = with(groupAvgs, (Target-min(Target)) / (max(Target)-min(Target)) + 0.01)
+    title = gsub('scl','Scaled',title)
+  } else {
+    title = gsub('scl','',title)
+  }
+  p = ggplot(groupAvgs, aes(x=factor(Group, levels=groupAvgs$Group), y=Target)) +
+        geom_bar(stat="identity", fill='blue') +
+        ggtitle(title) +
+        theme(axis.text.x = element_text(angle=90, hjust=1),
+              axis.title.x=element_blank())
+  return(p)
+}
+
+## average hours per week for each [feature], scaled and not
+# features: gender, workclass, native country, education, occupation
+hoursSplit('Sex', scl=FALSE)
+hoursSplit('Workclass', scl=FALSE)
+hoursSplit('Workclass', scl=TRUE)
+hoursSplit('NativeCountry', scl=FALSE)
+hoursSplit('NativeCountry', scl=TRUE)
+hoursSplit('Education', scl=FALSE)
+hoursSplit('Education', scl=TRUE)
+hoursSplit('Race', scl=FALSE)
+hoursSplit('Race', scl=TRUE)
+hoursSplit('Occupation', scl=FALSE)
+hoursSplit('Occupation', scl=TRUE)
+```
+
+Unsurprisingly, the self employeed tend to put in the most hours each week. The United States and Canada are side by side in terms of hours per week. Farming/fishing is the most time consuming occupation.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, splitIncome}
+# income >=50k split on some feature
+incomeSplit <- function(splittingFeature) {
+  groupAvgs = aggregate(adult$Income, by=list(adult[,splittingFeature]), function(x) {return(mean(as.integer(x)-1))})
+  names(groupAvgs) = c('Group','Target')
+  groupAvgs = groupAvgs[order(groupAvgs$Target),]
+  title = gsub('group',splittingFeature, 'Proportion >50k Income by group')
+  p = ggplot(groupAvgs, aes(x=factor(Group, levels=groupAvgs$Group), y=Target)) +
+        geom_bar(stat="identity", fill='blue') +
+        ggtitle(title) + ylab('Pct >50k') +
+        theme(axis.text.x = element_text(angle=90, hjust=1),
+              axis.title.x=element_blank())
+  return(p)
+}
+
+## proportion of >50k incomes for each [feature] split, not scaled
+# features: gender, workclass, native country, education, occupation
+incomeSplit('Sex')
+incomeSplit('Workclass')
+incomeSplit('NativeCountry')
+incomeSplit('Education')
+incomeSplit('Occupation')
+```
+

@@ -22,8 +22,7 @@ warnings.filterwarnings("ignore")
 
 def readData(fileLoc=None):
     data = np.load(fileLoc)
-    print(data.keys())
-    return (data[item] for item in data.keys())
+    return data
 
 
 class PreProcess(object):
@@ -184,7 +183,7 @@ class FeatureSelector(object):
         for item in k_features:
             k_best_score[item] += 1
         # create a probability mass function of the distribution.
-        for key, value in k_best_score.iteritems():
+        for key, value in k_best_score.items():
             k_best_score[key] = value/k_norm
         return k_best_score
 
