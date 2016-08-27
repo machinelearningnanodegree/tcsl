@@ -21,30 +21,30 @@ based on this work: http://journals.plos.org/ploscompbiol/article?id=10.1371/jou
 ```
 
 # System Design
-For portability and reproducibility of results, we have elected to use the Docker system and its `Dockerfile` syntax to prepare. As this work is done using Python and its `scikit-learn` libraries we have elected to use a system built via the Anaconda package manager. Furthermore, leveraging images designed by and for using the Jupyter system, which is built via Anaconda, allows a single container to be used both for running the analysis script and for interactive analysis of the data via Jupyter. The following `Dockerfile` completely describes the system used for this work. Note that it inherits from a Docker image designed and maintained by the [Jupyter team](https://hub.docker.com/r/jupyter/scipy-notebook/).
+For portability and reproducibility of results, we have elected to use the Docker system and its `Dockerfile` syntax to prepare. As this work is done using Python and its `scikit-learn` libraries we have elected to use a system built via the Anaconda package manager. Furthermore, leveraging images designed by and for using the Jupyter system, which is built via Anaconda, allows a single container to be used both for running the analysis script and for interactive analysis of the data via Jupyter. We use a Docker image designed and maintained by the [Jupyter team](https://hub.docker.com/r/jupyter/scipy-notebook/).
 
-## `mlnd/tcsl Dockerfile`
-```
-FROM jupyter/scipy-notebook
-VOLUMES .:/home/jovyan/work
-```
+## Running commands
 
-Via the above, fit analysis can be run on a single classifier,
+We have designed a `Makefile` to make working with the docker system easier.
+
+
+
+Via `Makefile`, data can be pre processed,
 
 ```
-$ docker run -e CLASSIFIER='decision tree' mlnd/tcsl python project.py
+$ make wrangle_data
 ```
 
 all classifiers,
 
 ```
-$ docker run mlnd/tcsl python project.py
+$ make all_classifiers
 ```
 
 or via an interactive notebook server
 
 ```
-$ docker run mlnd/tcsl
+$ make notebook_server
 ```
 
 Note that the last leverages a built-in launch script inherited from the original notebook definition, in that no explicit command was passed to the container.
@@ -106,22 +106,11 @@ convert all booleans to numeric values
 - use seed for reproducibility
 
 # Models
-For each model complete the following:
-Copy and paste this template to add a new model.
 **PUT YOUR NAME NEXT TO ONE YOU WOULD LIKE TO IMPLEMENT**
-
-name
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \  
 
 ```
 - calibration.CalibratedClassifierCV                   (JOSHUA)
-- discriminant_analysis.LinearDiscriminantAnalysis
+- discriminant_analysis.LinearDiscriminantAnalysis     (JOSHUA)
 - discriminant_analysis.QuadraticDiscriminantAnalysis  (JOSHUA)
 - dummy.DummyClassifier                                (JOSHUA)
 - ensemble.AdaBoostClassifier                          (DAVID)
@@ -154,46 +143,292 @@ name
 - tree.ExtraTreeClassifier
 ```
 
+## Discriminant Analysis
+TODO: General description.
 
-Adaptive Moment Estimation (ADAM)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
+### Linear discriminant analysis
+#### Brief description
 
-XGBoost (may require additional lib) (Matt)
-:  \ \  
-: brief description
-: time complexity, training
-: time complexity, prediction
-: strengths
-: Weaknesses  
- \ \   
+#### Strengths
+
+#### Weaknesses
 
 
+### Quadratic discriminant analysis
+#### Brief description
 
-AdaBoost (David)
-:  \ \  
-: Adaptive Boosting uses a large number of "weak" learners to make predictions
-with high accuracy. These learners are all weighted and their collective output
-is used to make a classification.
-: time complexity, training - TBD
-: time complexity, prediction - TBD
-: Strengths - It doesn't require high-accuracy classifiers.
-: Weaknesses - More complicated than a single classifier.
- \ \   
+#### Strengths
+
+#### Weaknesses
 
 
 
-List of Supervised Learning Models:
+## Ensemble
+Ensemble methods are not learning algorithms themselves, in the sense that they map features to some output. Rather, the ensemble technique is a *meta-algorithm* that combines many learners together to create one single learner. These *base learners* (those being combined) are typically either constructed to be high bias (i.e. boosting) or high variance (i.e. bagging). When combined, whether additively or through voting or otherwise, these base learners come together to produce one strong, regularized model. There are countless ensemble meta-algorithms; what follows is an analysis of most of the common ensemble methods.
+
+### AdaBoost
+#### Brief description
+Adaptive Boosting uses a large number of "weak" learners to make predictions with high accuracy. These learners are all weighted and their collective output is used to make a classification.
+#### Strengths
+- It doesn't require high-accuracy classifiers
+#### Weaknesses
+- More complicated than a single classifier
+
+### Gradient Boosting
+#### Brief description
+In any boosting algorithm, the shortcomings of the existing model are what the next learner focuses on. In gradient boosting, those shortcomings are identified the gradient of the cost function, $r_i=\frac{\partial{L(y_i,F(x_i))}}{\partial{F(x_i)}}$ for $i=1,...,n$. Once this is computed, the next learner is fit to a new dataset constructed from those gradients (or "residuals", but gradients is the more general term) as $D=\{(x_i,r_i)\}_{i=1}^{n}$. The model can then be updated by adding this new weak learner, and the process begins again. Gradient boosting is most commonly used with decision trees as the base learners. Gradient boosting can be shown to be a more general case of AdaBoost, one that is able to handle any differentiable cost function.
+#### Strengths
+- as with most ensemble methods, gradient boosting tends to do better than individual trees because intuitively, it is taking the best that each tree has to offer and adding it all up
+- with the ability to generalize to any cost function, gradient boosting has the potential to be robust to outliers; this and similar properties can be obtained by the selection of an appropriate cost function
+#### Weaknesses
+- to a point, the strength of the model is proportional to its computational cost; the more trees added, the more expensive the training process
+- overfitting is quite easy and effective regularization is necessary; this is controllable by the hyper-parameters, most importantly n_estimators, the number of trees
+
+### Random Forest
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
 
 
-http://scikit-learn.org/stable/supervised_learning.html
+### Bagging Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
 
 
+### Extra Trees Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Random Trees Embedding
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Voting Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Linear Model
+TODO: General description.
+
+### Logistic Regression
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Ridge Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### SGD Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Passive Aggressive Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Multiclass
+TODO: General description.
+
+### One VS One Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### One VS Rest Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Output Code Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Naive Bayes
+TODO: General description.
+
+### Gaussian NB
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Bernoulli NB
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Multinomial NB
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Neighbors
+TODO: General description.
+
+### K Neighbors Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Nearest Centroid
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Radius Neighbours Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## SVM
+TODO: General description.
+
+### Support Vector Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Linear Support Vector Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Nu Support Vector Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Tree
+TODO: General description.
+
+### Decision Tree Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Extra Trees Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+
+## Misc
+TODO: General description.
+
+### Calibrated Classifier CV
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Dummy Classifier
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Bernoulli Restricted Boltzmann Machine
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+### Label Propagation
+#### Brief description
+
+#### Strengths
+
+#### Weaknesses
+
+
+List of Supervised Learning Models [here](http://scikit-learn.org/stable/supervised_learning.html).
 
 
 # Metrics
