@@ -1,5 +1,6 @@
+# coding: utf-8
 
-
+# Imports
 from __future__ import print_function, absolute_import
 import os
 import argparse
@@ -14,6 +15,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectKBest
 
+# Suppress all warnings
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -138,9 +140,8 @@ class PreProcess(object):
 
 
 class FeatureSelector(object):
-    def __init__(self, pdata):
-        self.pdata = pdata
-        self.prepdata = pdata.__getprep__()
+    def __init__(self, prepdata):
+        self.prepdata = prepdata
         self.get_splits()
 
     def _array_to_df(self, features, colnames):
