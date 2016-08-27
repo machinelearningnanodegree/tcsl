@@ -1,5 +1,6 @@
+# coding: utf-8
 
-
+# Imports
 from __future__ import print_function, absolute_import
 import os
 import argparse
@@ -13,6 +14,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectKBest
+
+# Suppress all warnings
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def readData(fileLoc=None):
@@ -72,6 +77,9 @@ class PreProcess(object):
         """
         return {k: v for v, k in enumerate(np.unique(series))}
 
+    def _store_map(self, col, map):
+        self.col_map[col] = map
+
     def _get_strcols(self):
         """
         Utility function to get column names of string features.
@@ -99,8 +107,10 @@ class PreProcess(object):
         Returns:
         DataFrame with integer categories of strings features.
         """
+        self.col_map = {}
         for col in self._get_strcols():
             m = self._get_map(self.prepdata[col])
+            self._store_map(col, m)
             self.prepdata[col] = self.prepdata[col].map(m)
             self.prepdata[col].astype('category')
         return self.prepdata
@@ -129,20 +139,25 @@ class PreProcess(object):
 
 
 class FeatureSelector(object):
-    def __init__(self, data):
-        self.prepData = data.__getprep__()
+    def __init__(self, prepdata):
+        self.prepdata = prepdata
         self.get_splits()
 
     def _array_to_df(self, features, colnames):
         return pd.DataFrame(features, columns=colnames)
 
     def get_splits(self):
-        XTrain, _, yTrain, _ = trainCvSplit(self.prepData)
-        columns = self.prepData.columns.tolist()
+        XTrain, XTest, yTrain, yTest = trainCvSplit(self.prepdata)
+        columns = self.prepdata.columns.tolist()
         feature_cols = columns[:-1]
         label_cols = columns[-1:]
         self.features, self.labels = (self._array_to_df(XTrain, feature_cols),
                                       self._array_to_df(yTrain, label_cols))
+        self.testfeatures, self.testlabels = (self._array_to_df(XTest,
+                                                                feature_cols),
+                                              self._array_to_df(yTest,
+                                                                label_cols)
+                                              )
 
     def k_best_features(self):
         # get total number of features.

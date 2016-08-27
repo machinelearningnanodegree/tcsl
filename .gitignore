@@ -1,5 +1,6 @@
 results/*
 tmp/*
+.ipynb_checkpoints
 *.npz
 *.pyc
 **/.DS_Store
