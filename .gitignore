@@ -1,4 +1,5 @@
 results/*
 tmp/*
+.ipynb_checkpoints
 *.npz
 *.pyc
