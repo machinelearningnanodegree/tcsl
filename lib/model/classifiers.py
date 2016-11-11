@@ -11,6 +11,8 @@ from sklearn import semi_supervised
 from sklearn import svm
 from sklearn import tree
 
+RANDOM_STATE = 42
+
 CLASSIFIERS = [
     # calibration.CalibratedClassifierCV,
     (discriminant_analysis.LinearDiscriminantAnalysis, {}, [{ ####HOLY WARNINGS!!!!
@@ -28,10 +30,14 @@ CLASSIFIERS = [
     ]),
     # discriminant_analysis.QuadraticDiscriminantAnalysis,
     # dummy.DummyClassifier,
-    # ensemble.AdaBoostClassifier,
+    (ensemble.AdaBoostClassifier, {'random_state' : RANDOM_STATE}, {
+        'n_estimators' : [10, 25, 50, 75, 100, 150],
+        'learning_rate' : [1e-2, 1e-1, 1.],
+        'algorithm' : ['SAMME', 'SAMME.R']
+    }),
     # ensemble.BaggingClassifier,
     # ensemble.ExtraTreesClassifier,
-    (ensemble.GradientBoostingClassifier, {'random_state' : 42}, {
+    (ensemble.GradientBoostingClassifier, {'random_state' : RANDOM_STATE}, {
      'n_estimators' : [50,75,100,125,150],
      'max_leaf_nodes' : list(range(4,9)),
     }),
